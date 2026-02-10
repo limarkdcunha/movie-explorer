@@ -10,11 +10,19 @@ export interface FavoriteMovie {
 }
 
 export function useFavorites() {
-  const [favorites, setFavorites] = useState<FavoriteMovie[]>(() => {
-    const saved = localStorage.getItem("omdb-movie-favs");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [favorites, setFavorites] = useState<FavoriteMovie[]>([]);
 
+  // console.log("FAV RENDER");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("omdb-movie-favs");
+    if (saved) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFavorites(JSON.parse(saved));
+    }
+  }, []);
+
+  // Persist to localStorage whenever favorites change
   useEffect(() => {
     localStorage.setItem("omdb-movie-favs", JSON.stringify(favorites));
   }, [favorites]);
