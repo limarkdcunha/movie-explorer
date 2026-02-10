@@ -51,7 +51,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold">🎬 Movie Explorer</h1>
           <a
-            href="/favorites"
+            href="/pages/favorites"
             className="text-sm bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded transition"
           >
             View Favorites ({favorites.length})
