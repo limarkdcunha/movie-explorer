@@ -1,36 +1,249 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Movie Explorer
 
-## Getting Started
+A Next.js web application for searching movies, viewing details, and managing favorites with personal ratings and notes.
 
-First, run the development server:
+---
+
+## 🚀 Live Demo
+
+**Hosted App:**  
+https://movie-explorer-two-rosy.vercel.app/
+
+---
+
+## 📦 Setup & Run Instructions
+
+### Prerequisites
+
+- Node.js 18+ installed
+- OMDb API key (get one free at https://www.omdbapi.com/apikey.aspx)
+
+---
+
+## 🧑‍💻 Local Development
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/movie-explorer.git
+cd movie-explorer
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+OMDBAPIKEY=your_omdb_api_key_here
+OMDBBASEURL=https://www.omdbapi.com/
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 5. Open in browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Navigate to:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+http://localhost:3000
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+# 🏗️ Technical Decisions & Tradeoffs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔐 API Proxy Pattern
 
-## Deploy on Vercel
+**Decision:**  
+All OMDb API calls go through Next.js API routes (`/api/search`, `/api/movie`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Rationale
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Keeps API key secure on the server
+- Prevents exposure in client-side code
+- Enables server-side data enrichment (e.g., fetching plot summaries for search results)
+- Allows for future caching/rate limiting without changing frontend code
+
+### Tradeoff
+
+- Adds slight latency vs. direct API calls
+- Requires server deployment (can't be purely static)
+
+**Conclusion:** Worth it for security and flexibility.
+
+---
+
+## 💾 LocalStorage for Persistence
+
+**Decision:**  
+Client-side persistence using browser LocalStorage via custom `useFavorites` hook.
+
+### Rationale
+
+- Zero backend infrastructure needed
+- Instant persistence with no network requests
+- Simple implementation meets baseline requirements
+- Fast read/write operations
+
+### Tradeoff
+
+- Data is device-specific (no cross-device sync)
+- Limited to ~5–10MB storage
+- Data lost if user clears browser data
+
+**Future Improvement:** Could migrate to database (Supabase/MongoDB) for multi-device access.
+
+---
+
+## ⚙️ State Management
+
+**Decision:**  
+React `useState` with custom hooks; no global state library.
+
+### Rationale
+
+- Application is simple enough to not justify Redux/Zustand overhead
+- Custom `useFavorites` hook encapsulates all favorites logic
+- Props drilling is minimal due to component structure
+- Keeps bundle size small
+
+### Tradeoff
+
+- Would need refactoring if app grows significantly
+- No time-travel debugging or middleware
+
+**Conclusion:** Appropriate for current scope.
+
+---
+
+## 🧩 Component Architecture
+
+**Decision:**  
+Functional components with hooks; separation between pages and reusable logic.
+
+### Structure
+
+```text
+app/
+├── page.tsx                 # Search / Home
+├── movie/[id]/page.tsx      # Movie details
+├── favorites/page.tsx       # Favorites page
+├── api/                     # Proxy routes
+└── components/
+    └── useFavorites/        # Shared hook
+```
+
+### Rationale
+
+- Clear separation of concerns
+- Easy to test individual pieces
+- Follows Next.js App Router conventions
+
+---
+
+# ⚠️ Known Limitations & Future Improvements
+
+---
+
+## Current Limitations
+
+### ❌ No Pagination
+
+- Search results limited to first page (~10 results)
+- OMDb API returns max 10 results per query
+
+### ❌ Limited Error Handling
+
+- Basic error messages only
+- No retry logic for failed API calls
+- No network status detection
+
+### ❌ No Search History
+
+- Previous searches aren't saved
+- No autocomplete suggestions
+
+### ❌ Single User
+
+- LocalStorage is per-device
+- No user accounts or authentication
+
+### ❌ Basic UI Polish
+
+- No loading skeletons during search
+- No advanced image lazy loading optimization
+- Mobile experience could be more refined
+
+---
+
+# 🚀 With More Time, I Would Add
+
+---
+
+## 🔥 High Priority
+
+### Pagination / Infinite Scroll
+
+- Fetch and display more than 10 results
+- Implement "Load More" or infinite scroll pattern
+
+### Enhanced Search
+
+- Filter by year, genre, rating
+- Sort options (relevance, rating, year)
+- Search history with LocalStorage
+
+### Server-Side Persistence
+
+- Migrate to PostgreSQL/MongoDB with Prisma
+- Add user authentication (NextAuth.js)
+- Enable cross-device favorites sync
+
+### Better UX
+
+- Loading skeletons for search results
+- Optimistic UI updates for favorites
+- Toast notifications for actions
+- Empty state illustrations
+
+### Performance Improvements
+
+- Implement API response caching (Redis or Next.js cache)
+- Image optimization and CDN
+- Request debouncing for search
+
+---
+
+## ✨ Nice to Have
+
+- Movie recommendations based on favorites
+- Share favorite lists via link
+- Export favorites as JSON/CSV
+- Dark mode support
+- Keyboard shortcuts for navigation
+- Unit tests (Jest + React Testing Library)
+- E2E tests (Playwright)
+- PWA support for offline access
+
+---
+
+# 🛠️ Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **API:** OMDb API
+- **Deployment:** Vercel
+- **Storage:** Browser LocalStorage
