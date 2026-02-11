@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useFavorites } from "./components/useFavorites/useFavorites";
 
@@ -101,28 +102,43 @@ export default function Home() {
                 key={movie.imdbID}
                 className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden border border-gray-100 flex flex-col"
               >
-                <div className="aspect-[2/3] relative bg-gray-200">
+                <Link
+                  href={`/movie/${movie.imdbID}`}
+                  className="aspect-[2/3] relative bg-gray-200 block cursor-pointer group"
+                >
                   {hasPoster ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={movie.Poster}
                       alt={movie.Title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:opacity-90 transition"
                     />
                   ) : (
                     <div className="flex items-center justify-center h-full text-gray-400 font-medium">
                       No Poster
                     </div>
                   )}
-                </div>
+
+                  {/* Hover Overlay Hint */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 bg-white/90 text-xs font-bold px-2 py-1 rounded shadow-sm">
+                      View Details
+                    </span>
+                  </div>
+                </Link>
 
                 <div className="p-4 flex flex-col flex-1">
-                  <h3
-                    className="font-bold text-lg leading-tight mb-1 truncate"
-                    title={movie.Title}
+                  <Link
+                    href={`/movie/${movie.imdbID}`}
+                    className="hover:text-blue-600 transition"
                   >
-                    {movie.Title}
-                  </h3>
+                    <h3
+                      className="font-bold text-lg leading-tight mb-1 truncate"
+                      title={movie.Title}
+                    >
+                      {movie.Title}
+                    </h3>
+                  </Link>
                   <p className="text-sm text-gray-500 mb-4">{movie.Year}</p>
 
                   <div className="mt-auto">
