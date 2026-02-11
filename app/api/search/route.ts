@@ -10,24 +10,19 @@ export async function GET(request: Request) {
       { status: 400 },
     );
   }
-
-  // FIXED VALUE: Using your OMDb key directly or from env
   const apiKey = process.env.OMDB_API_KEY;
-  const baseUrl = "http://www.omdbapi.com";
+  const baseUrl = process.env.OMDB_BASE_URL;
 
-  // OMDb specific URL format (s=query, type=movie)
   const url = `${baseUrl}/?s=${encodeURIComponent(query)}&type=movie&apikey=${apiKey}`;
 
   try {
     const res = await fetch(url);
     const data = await res.json();
 
-    // Handle OMDb's specific "False" response
     if (data.Response === "False") {
       return NextResponse.json({ results: [] });
     }
 
-    // OMDb returns data.Search, but our frontend expects data.results
     return NextResponse.json({ results: data.Search });
   } catch (error) {
     return NextResponse.json(

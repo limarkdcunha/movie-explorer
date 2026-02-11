@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useFavorites } from "./components/useFavorites/useFavorites";
 
-// Define the shape of data coming from OMDb
 interface OMDbMovie {
   imdbID: string;
   Title: string;
@@ -36,7 +35,6 @@ export default function Home() {
       if (!data.results || data.results.length === 0) {
         setError("No movies found.");
       } else {
-        // ✅ FIX: Using 'OMDbMovie' type instead of 'any'
         const uniqueMovies = data.results.filter(
           (movie: OMDbMovie, index: number, self: OMDbMovie[]) =>
             index === self.findIndex((m) => m.imdbID === movie.imdbID),
@@ -44,6 +42,7 @@ export default function Home() {
 
         setMovies(uniqueMovies);
       }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       setError("Failed to fetch movies. Please try again.");
     } finally {
@@ -104,6 +103,7 @@ export default function Home() {
               >
                 <div className="aspect-[2/3] relative bg-gray-200">
                   {hasPoster ? (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={movie.Poster}
                       alt={movie.Title}
