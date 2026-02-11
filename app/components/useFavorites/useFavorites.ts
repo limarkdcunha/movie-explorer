@@ -12,7 +12,7 @@ export interface FavoriteMovie {
 export function useFavorites() {
   const [favorites, setFavorites] = useState<FavoriteMovie[]>([]);
 
-  // console.log("FAV RENDER");
+  console.log("FAV RENDER");
 
   useEffect(() => {
     const saved = localStorage.getItem("omdb-movie-favs");

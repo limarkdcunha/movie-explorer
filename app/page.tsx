@@ -36,7 +36,13 @@ export default function Home() {
       if (!data.results || data.results.length === 0) {
         setError("No movies found.");
       } else {
-        setMovies(data.results);
+        // ✅ FIX: Using 'OMDbMovie' type instead of 'any'
+        const uniqueMovies = data.results.filter(
+          (movie: OMDbMovie, index: number, self: OMDbMovie[]) =>
+            index === self.findIndex((m) => m.imdbID === movie.imdbID),
+        );
+
+        setMovies(uniqueMovies);
       }
     } catch (err) {
       setError("Failed to fetch movies. Please try again.");
