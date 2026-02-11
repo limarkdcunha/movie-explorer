@@ -7,7 +7,7 @@ A Next.js web application for searching movies, viewing details, and managing fa
 ## 🚀 Live Demo
 
 **Hosted App:**  
-https://movie-explorer-q7um94xl7-limark-dcunhas-projects.vercel.app/
+https://movie-explorer-two-rosy.vercel.app/
 
 ---
 
