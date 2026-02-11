@@ -31,7 +31,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ results: data.Search });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to fetch data" },
+      { error: "Failed to fetch data" + error },
       { status: 500 },
     );
   }

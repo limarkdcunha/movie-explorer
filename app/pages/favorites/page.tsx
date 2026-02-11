@@ -40,6 +40,9 @@ export default function FavoritesPage() {
                 {/* Poster */}
                 <div className="w-full md:w-32 flex-shrink-0">
                   {movie.Poster && movie.Poster !== "N/A" ? (
+                    // Using Image from next requires whitelisting and
+                    // since this is not a breaking point we can update it later
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={movie.Poster}
                       alt={movie.Title}

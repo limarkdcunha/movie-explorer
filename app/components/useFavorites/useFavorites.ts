@@ -17,6 +17,7 @@ export function useFavorites() {
   useEffect(() => {
     const saved = localStorage.getItem("omdb-movie-favs");
     if (saved) {
+      // TO DO: Update this with a proper fix for handling localStorage in Next.js
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setFavorites(JSON.parse(saved));
     }
