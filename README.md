@@ -25,7 +25,7 @@ https://movie-explorer-q7um94xl7-limark-dcunhas-projects.vercel.app/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/movie-explorer.git
+git clone https://github.com/limarkdcunha/movie-explorer
 cd movie-explorer
 ```
 
@@ -139,7 +139,7 @@ Functional components with hooks; separation between pages and reusable logic.
 app/
 ├── page.tsx                 # Search / Home
 ├── movie/[id]/page.tsx      # Movie details
-├── favorites/page.tsx       # Favorites page
+├── pages/favorites/page.tsx       # Favorites page
 ├── api/                     # Proxy routes
 └── components/
     └── useFavorites/        # Shared hook
@@ -161,7 +161,7 @@ app/
 
 ### ❌ No Pagination
 
-- Search results limited to first page (~10 results)
+- Search results limited to first page (10 results)
 - OMDb API returns max 10 results per query
 
 ### ❌ Limited Error Handling
@@ -254,9 +254,9 @@ app/
 
 # 🛠️ Tech Stack
 
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript
-- **Styling:** Tailwind CSS
+- **Styling:** Tailwind CSS v4
 - **API:** OMDb API
 - **Deployment:** Vercel
 - **Storage:** Browser LocalStorage
