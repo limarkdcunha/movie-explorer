@@ -11,10 +11,8 @@ export interface FavoriteMovie {
 
 export function useFavorites() {
   const [favorites, setFavorites] = useState<FavoriteMovie[]>([]);
-  // ✅ Track if we have finished loading from localStorage
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // 1. Load from localStorage (runs once on mount)
   useEffect(() => {
     const saved = localStorage.getItem("omdb-movie-favs");
     if (saved) {
@@ -29,10 +27,7 @@ export function useFavorites() {
     setIsLoaded(true); // ✅ Mark as loaded
   }, []);
 
-  // 2. Persist to localStorage whenever favorites change
   useEffect(() => {
-    // ✅ ONLY save if we have finished the initial load.
-    // This prevents overwriting with an empty array on page refresh.
     if (isLoaded) {
       localStorage.setItem("omdb-movie-favs", JSON.stringify(favorites));
     }
