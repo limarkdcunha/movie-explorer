@@ -7,7 +7,7 @@ A Next.js web application for searching movies, viewing details, and managing fa
 ## 🚀 Live Demo
 
 **Hosted App:**  
-https://movie-explorer-two-rosy.vercel.app/
+https://movie-explorer-q7um94xl7-limark-dcunhas-projects.vercel.app/
 
 ---
 
@@ -103,7 +103,7 @@ Client-side persistence using browser LocalStorage via custom `useFavorites` hoo
 - Limited to ~5–10MB storage
 - Data lost if user clears browser data
 
-**Future Improvement:** Could migrate to database (Supabase/MongoDB) for multi-device access.
+**Future Improvement:** Could migrate to a database solution for multi-device access.
 
 ---
 
@@ -205,11 +205,25 @@ app/
 - Sort options (relevance, rating, year)
 - Search history with LocalStorage
 
+### Improved Data Fetching & Caching
+
+- Use a dedicated fetching library such as `useQuery` (TanStack Query)
+- Built-in caching, background refetching, and request deduplication
+- Cleaner separation between UI and server state logic
+
 ### Server-Side Persistence
 
-- Migrate to PostgreSQL/MongoDB with Prisma
+- Migrate to PostgreSQL or MongoDB
 - Add user authentication (NextAuth.js)
 - Enable cross-device favorites sync
+
+### Code Quality Improvements
+
+- Improve naming consistency across components and hooks
+- Break down large components into smaller reusable components
+- Extract reusable logic into custom hooks where appropriate
+- Improve folder structure for scalability
+- Add stricter TypeScript types and better error boundaries
 
 ### Better UX
 
@@ -220,9 +234,8 @@ app/
 
 ### Performance Improvements
 
-- Implement API response caching (Redis or Next.js cache)
-- Image optimization and CDN
-- Request debouncing for search
+- Image optimization and CDN usage
+- Request debouncing for search input
 
 ---
 

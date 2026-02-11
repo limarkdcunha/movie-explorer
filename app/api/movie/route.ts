@@ -14,7 +14,6 @@ export async function GET(request: Request) {
   const apiKey = process.env.OMDB_API_KEY;
   const baseUrl = "http://www.omdbapi.com";
 
-  // Use 'i' parameter for ID search and 'plot=full' for long description
   const url = `${baseUrl}/?i=${encodeURIComponent(id)}&plot=full&apikey=${apiKey}`;
 
   try {
