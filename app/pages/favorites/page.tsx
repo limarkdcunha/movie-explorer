@@ -75,28 +75,33 @@ export default function FavoritesPage() {
                   <div className="mt-6 grid gap-4">
                     {/* Rating Input */}
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">
-                        Your Rating (1-5)
+                      <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                        Your Rating
                       </label>
-                      <div className="flex gap-2">
+                      <div className="flex gap-1">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <button
                             key={star}
                             onClick={() =>
                               updateRating(movie.imdbID, star, movie.note)
                             }
-                            className={`text-2xl transition ${
+                            className={`text-3xl transition-all duration-200 ease-in-out transform hover:scale-125 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 rounded ${
                               star <= (movie.rating || 0)
-                                ? "text-yellow-400 scale-110"
-                                : "text-gray-300 hover:text-yellow-200"
+                                ? "text-amber-400 drop-shadow-sm"
+                                : "text-gray-300 hover:text-amber-300"
                             }`}
+                            aria-label={`Rate ${star} stars`}
                           >
                             ★
                           </button>
                         ))}
+                        {movie.rating > 0 && (
+                          <span className="ml-3 text-sm font-medium text-gray-600 self-center">
+                            {movie.rating}/5
+                          </span>
+                        )}
                       </div>
                     </div>
-
                     {/* Notes Input */}
                     <div>
                       <label className="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">
