@@ -85,6 +85,7 @@ export default function MovieDetailsPage({
           {/* Large Poster */}
           <div className="w-full md:w-1/3 bg-gray-200">
             {movie.Poster && movie.Poster !== "N/A" ? (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={movie.Poster}
                 alt={movie.Title}
@@ -104,17 +105,6 @@ export default function MovieDetailsPage({
                 <h1 className="text-3xl font-bold text-slate-900 mb-2">
                   {movie.Title}
                 </h1>
-                <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-                  <span className="bg-gray-100 px-2 py-1 rounded">
-                    {movie.Year}
-                  </span>
-                  <span className="bg-gray-100 px-2 py-1 rounded">
-                    {movie.Rated}
-                  </span>
-                  <span className="bg-gray-100 px-2 py-1 rounded">
-                    {movie.Runtime}
-                  </span>
-                </div>
               </div>
               <div className="text-center bg-yellow-50 px-3 py-2 rounded-lg border border-yellow-100">
                 <span className="block text-2xl font-bold text-yellow-600">
@@ -126,12 +116,21 @@ export default function MovieDetailsPage({
               </div>
             </div>
 
-            {/* Plot */}
-            <p className="text-gray-700 leading-relaxed mb-6 text-lg">
-              {movie.Plot}
-            </p>
-
             <div className="space-y-3 mb-8 text-sm">
+              <p>
+                <strong className="text-gray-900">Release Date:</strong>{" "}
+                {movie.Released}
+              </p>
+              <p>
+                <strong className="text-gray-900">Rated:</strong> {movie.Rated}
+              </p>
+              <p>
+                <strong className="text-gray-900">Runtime:</strong>{" "}
+                {movie.Runtime}
+              </p>
+              <p>
+                <strong className="text-gray-900">Plot:</strong> {movie.Plot}
+              </p>
               <p>
                 <strong className="text-gray-900">Genre:</strong> {movie.Genre}
               </p>
