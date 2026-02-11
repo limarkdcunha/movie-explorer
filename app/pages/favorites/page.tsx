@@ -59,9 +59,14 @@ export default function FavoritesPage() {
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900">
-                        {movie.Title}
-                      </h3>
+                      <Link
+                        href={`/movie/${movie.imdbID}`}
+                        className="hover:text-blue-600 transition"
+                      >
+                        <h3 className="text-xl font-bold text-slate-900 hover:text-blue-600 transition cursor-pointer">
+                          {movie.Title}
+                        </h3>
+                      </Link>
                       <p className="text-sm text-gray-500">{movie.Year}</p>
                     </div>
                     <button
